@@ -1,0 +1,22 @@
+$TTL 86400
+@   IN  SOA ns.corp10.un. admin.corp10.un. (
+    2025012001  ; Serial
+    3600        ; Refresh
+    1800        ; Retry
+    604800      ; Expire
+    86400       ; Minimum TTL
+)
+
+; NS записи
+@       IN  NS  ns.corp10.un.
+
+; A записи
+@       IN  A   172.16.10.1      ; Основной адрес сервера
+ns      IN  A   172.16.10.1
+server  IN  A   172.16.10.1
+client1 IN  A   172.16.10.201    ; Ваш клиент
+mx      IN  A   172.16.10.102
+www     IN  A   172.16.10.103
+
+; CNAME записи
+mail    IN  CNAME   mx
