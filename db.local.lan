@@ -1,0 +1,31 @@
+'EOF'
+$TTL 86400
+@   IN  SOA ns.local.lan. admin.local.lan. (
+    2025010101  ; Серийный номер (ГГГГММДДВВ)
+    3600        ; Refresh (1 час)
+    1800        ; Retry (30 мин)
+    604800      ; Expire (1 неделя)
+    86400       ; Minimum TTL (1 день)
+)
+
+; DNS-серверы
+@       IN  NS  ns.local.lan.
+
+; Записи A (адресные)
+@       IN  A   192.168.1.1
+ns      IN  A   192.168.1.1
+server  IN  A   192.168.1.1
+router  IN  A   192.168.1.254
+client1 IN  A   192.168.1.100
+client2 IN  A   192.168.1.101
+www     IN  A   192.168.1.10
+mail    IN  A   192.168.1.20
+nas     IN  A   192.168.1.30
+
+; Псевдонимы (CNAME)
+web     IN  CNAME   www
+smtp    IN  CNAME   mail
+pop3    IN  CNAME   mail
+imap    IN  CNAME   mail
+files   IN  CNAME   nas
+EOF
