@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNS Тест - Vova Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .info-box {
+            background: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .server-info {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ DNS Работает!</h1>
+        <p>Вы успешно открыли сайт через DNS сервер.</p>
+        
+        <div class="info-box">
+            <h3>Информация о подключении:</h3>
+            <div class="server-info">
+                <p><strong>Домен:</strong> www.vova.local</p>
+                <p><strong>IP адрес сервера:</strong> 172.16.10.1</p>
+                <p><strong>Имя сервера:</strong> server.vova.local</p>
+                <p><strong>Клиент:</strong> <%= CLIENT_IP %></p>
+                <p><strong>Время:</strong> <span id="time"></span></p>
+            </div>
+        </div>
+        
+        <div class="success">
+            <h3>🎉 Поздравляем!</h3>
+            <p>Вы настроили:</p>
+            <ul>
+                <li>DHCP сервер ✓</li>
+                <li>DNS сервер ✓</li>
+                <li>Веб-сервер ✓</li>
+                <li>Работа через доменное имя ✓</li>
+            </ul>
+        </div>
+        
+        <h3>Проверка работы:</h3>
+        <p>Также доступны:</p>
+        <ul>
+            <li><a href="http://server.vova.local">server.vova.local</a> - сервер</li>
+            <li><a href="http://test.vova.local">test.vova.local</a> - тестовая страница</li>
+            <li><a href="http://172.16.10.1">по IP: 172.16.10.1</a></li>
+        </ul>
+    </div>
+    
+    <script>
+        // Показываем текущее время
+        function updateTime() {
+            document.getElementById('time').textContent = new Date().toLocaleString();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        // Получаем IP клиента (простой способ)
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.body.innerHTML = document.body.innerHTML.replace(
+                    '<%= CLIENT_IP %>', 
+                    data.ip || 'не определен'
+                );
+            })
+            .catch(() => {
+                document.body.innerHTML = document.body.innerHTML.replace(
+                    '<%= CLIENT_IP %>', 
+                    'не определен (оффлайн)'
+                );
+            });
+    </script>
+</body>
+</html>
